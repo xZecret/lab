@@ -1,0 +1,14 @@
+import re, uuid
+import os, sys
+import subprocess
+
+mac = ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+command = "get-disk | select serialnumber"
+serial = subprocess.run(['powershell', '-Command', command], capture_output=True).stdout.split()[2]
+
+if(mac == 'af:8e:21:32:df:c4' and serial == b'E823_8FA6_BF53_FDSA_001B_444A_44E4_983A.'):
+    print(f'MAC-адрес сетевой карты: {mac}')
+    print(f'Серийный номер раздела жесткого диска: {serial}')
+else:
+    print('Неоректные данные !!!!!!!!!!!!!')
+    exit(0)
